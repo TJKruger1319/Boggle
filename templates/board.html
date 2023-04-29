@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+{% block title %}Boggle!{% endblock %}
+
+{% block content %}
+<table>
+    <tbody>
+        <tr>
+            <td>{{ board[0][0]}}</td>
+            <td>{{ board[0][1]}}</td>
+            <td>{{ board[0][2]}}</td>
+            <td>{{ board[0][3]}}</td>
+            <td>{{ board[0][4]}}</td>
+        </tr>
+        <tr>
+            <td>{{ board[1][0]}}</td>
+            <td>{{ board[1][1]}}</td>
+            <td>{{ board[1][2]}}</td>
+            <td>{{ board[1][3]}}</td>
+            <td>{{ board[1][4]}}</td>
+        </tr>
+        <tr>
+            <td>{{ board[2][0]}}</td>
+            <td>{{ board[2][1]}}</td>
+            <td>{{ board[2][2]}}</td>
+            <td>{{ board[2][3]}}</td>
+            <td>{{ board[2][4]}}</td>
+        </tr>
+        <tr>
+            <td>{{ board[3][0]}}</td>
+            <td>{{ board[3][1]}}</td>
+            <td>{{ board[3][2]}}</td>
+            <td>{{ board[3][3]}}</td>
+            <td>{{ board[3][4]}}</td>
+        </tr>
+        <tr>
+            <td>{{ board[4][0]}}</td>
+            <td>{{ board[4][1]}}</td>
+            <td>{{ board[4][2]}}</td>
+            <td>{{ board[4][3]}}</td>
+            <td>{{ board[4][4]}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<form action="/guess" id="guess-form" method="POST">
+    <label for="guess"></label>
+    <input type="text" id="guess" name="boggle-guess" placeholder="Boggle Guess">
+    <button>Submit!</button>
+</form>
+
+{% for msg in get_flashed_messages() %}
+<p id="result">{{msg}}</p>
+{% endfor %}
+
+<section>
+    <p>Score: </p>
+    <p id="score"></p>
+</section>
+
+<script src="https://unpkg.com/jquery"></script>
+<script src="https://unpkg.com/axios/dist/axios.js"></script>
+<script src="/static/word.js"></script>
+
+{% endblock%}
