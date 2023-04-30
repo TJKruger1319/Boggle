@@ -1,31 +1,24 @@
 const $guessForm = $("#guess-form");
 const $guess = $("#guess");
 const BASE_URL = "http://127.0.0.1:5000";
-let score;
-if (localStorage.length > 0) {
-    score = Number(localStorage.getItem("score"));
-} else {
-    score = 0;
+
+async function getFromServer(){
+    let test = await axios.get(`${BASE_URL}/guess`);
+    console.log(test.data.result);
+    $('#result').text(test.data.result)
 }
 
-function sendToServer(){
-    axios.post('${BASE_URL}/guess', $guess);
+async function sendToServer(value){
+    return await axios.post(`${BASE_URL}/getguess`, {
+        value: value
+    })
 }
 
-function displayScore(){
-    result = $("#result").text();
-    console.log(result);
-    if (result === "ok") {
-        score += $guess.length;
-        console.log($guess.length)
-        localStorage.setItem("score", score)
-        console.log(score)
-    }
-    $("#score").text(score);
-}
-
-$guessForm.on("submit", function() {
-    sendToServer();
+$guessForm.on("submit", function(e) {
+    e.preventDefault();
+    let value = $("#guess").val();
+    console.log(value);
+    sendToServer(value);
+    getFromServer();
 });
 
-displayScore();

@@ -43,19 +43,18 @@
     </tbody>
 </table>
 
-<form action="/guess" id="guess-form" method="POST">
+<form action="/getguess" id="guess-form" method="POST">
     <label for="guess"></label>
     <input type="text" id="guess" name="boggle-guess" placeholder="Boggle Guess">
     <button>Submit!</button>
 </form>
 
-{% for msg in get_flashed_messages() %}
-<p id="result">{{msg}}</p>
-{% endfor %}
+<section>
+    <p id="result"></p>
+</section>
 
 <section>
     <p>Score: </p>
-    <p id="score"></p>
 </section>
 
 <script src="https://unpkg.com/jquery"></script>
