@@ -5,19 +5,15 @@ let score = 0;
 
 async function getFromServer(value){
     //Gets the result from the backend
-    let test = await axios.get(`${BASE_URL}/guess`);
+    test = await axios.post(`${BASE_URL}/guess`, {
+        value: value
+    })
     result = test.data.result
     console.log(result);
     displayResult(result);
     scoreBoard(result, value)
 }
 
-async function sendToServer(value){
-    //Sends the guess to the backend
-    return await axios.post(`${BASE_URL}/getguess`, {
-        value: value
-    })
-}
 
 function displayResult(result) {
     //Put the result on the ui
@@ -36,7 +32,6 @@ $guessForm.on("submit", function(e) {
     e.preventDefault();
     let value = $("#guess").val();
     console.log(value);
-    sendToServer(value);
     getFromServer(value);
 });
 

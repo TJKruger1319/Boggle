@@ -15,23 +15,13 @@ def start_game():
     session["board"] = board
     return render_template("board.html", board=board)
 
-@app.route("/getguess", methods=['POST'])
-def get_guess():
-    word = request.json
-    session['word'] = word['value']
-    print(word, session['word'], "38")
-    if word == None:
-        return "Failure"
-    else:
-        return f"Success, your word is {session['word']}"
-
 @app.route("/guess", methods=['GET','POST'])
 def is_word():
     session["result"] = ""
     board = session["board"]
-    word = session['word']
-    print(word, session['word'], "24")
-    answer = new_boggle.check_valid_word(board, word)
+    word = request.json
+    print(word, "24")
+    answer = new_boggle.check_valid_word(board, word['value'])
     dict = {"result": answer}
     session["result"] = dict
     result = jsonify(dict)
