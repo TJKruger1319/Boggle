@@ -12,20 +12,20 @@ print(board)
 
 @app.route("/")
 def start_game():
+    session["guesses"] = []
     session["board"] = board
     return render_template("board.html", board=board)
 
 @app.route("/guess", methods=['GET','POST'])
 def is_word():
-    session["result"] = ""
     board = session["board"]
+    guesses = session["guesses"]
     word = request.json
-    print(word, "24")
+    if word['value'] in guesses:
+        return jsonify({"result": "already-guessed"})
+    guesses.append(word['value'])
+    session["guesses"] = guesses
     answer = new_boggle.check_valid_word(board, word['value'])
-    dict = {"result": answer}
-    session["result"] = dict
-    result = jsonify(dict)
-    print(result)
-    return result
+    return jsonify({"result": answer})
 
 
