@@ -3,7 +3,7 @@
 {% block title %}Boggle!{% endblock %}
 
 {% block content %}
-<table>
+<table id="board" class="hidden">
     <tbody>
         <tr>
             <td>{{ board[0][0]}}</td>
@@ -43,18 +43,28 @@
     </tbody>
 </table>
 
-<form action="/getguess" id="guess-form" method="POST">
+<form action="/getguess" id="guess-form" class="hidden" method="POST">
     <label for="guess"></label>
     <input type="text" id="guess" name="boggle-guess" placeholder="Boggle Guess">
     <button>Submit!</button>
 </form>
 
-<section>
+<section id="result-section" class="hidden">
     <p id="result"></p>
+    <p id="score">Score: 0</p>
 </section>
 
-<section>
-    <p id="score">Score: 0</p>
+<section id="start-section">
+    <p>Start Boggle?</p>
+    <button class="start">Start</button>
+</section>
+
+<section class="hidden" id="final-section">
+    <p id="final-score"></p>
+    <p id="high-score"></p>
+    <p id="times-played"></p>
+    <p>Play again?</p>
+    <button class="start">Start</button>
 </section>
 
 <script src="https://unpkg.com/jquery"></script>
